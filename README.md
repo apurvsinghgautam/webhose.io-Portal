@@ -16,4 +16,4 @@ This is a web application built on Flask. It utilizes webhose.io API to fetch th
 
 ## Contributors
 
-- [Apurv Singh Gautam](https://apurvsinghguatam.me)
+- [Apurv Singh Gautam](https://apurvsinghgautam.me)
