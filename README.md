@@ -1,6 +1,6 @@
 # webhose.io Portal
 
-This is a web application built on Flask. It utilizes webhose.io API to fetch the JSON data from News, Blog, Online Discussions, Online Reviews, Broadcast, and Dark Web filters.
+This is a web application built on Flask. It utilizes webhose.io API to fetch the JSON data from News, Blog, Online Discussions, Online Reviews, Broadcast, and Dark Web filters and visualizes it.
 
 ## Prerequisites
 
