@@ -1,0 +1,403 @@
+{% extends 'layout.html' %}
+{% block body %}
+{% set pg=page %}
+	<div style="float:right;">
+		<ul class="pagination">
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=pg-1) }}">&laquo;</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=1) }}">1</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=2) }}">2</a>
+			</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=mid_page-1) }}">{{ mid_page-1 }}</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=mid_page) }}">{{ mid_page }}</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=mid_page+1) }}">{{ mid_page+1 }}</a>
+			</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=total_page-1) }}">{{ total_page-1 }}</a>
+			</li>
+	        <li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=total_page) }}">{{ total_page }}</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=pg+1) }}">&raquo;</a>
+			</li>		
+		</ul>
+	</div>		
+	<h2>Search Results</h2>
+	<br>
+	<div>
+		<h4>Requests Left: {{ r }}</h4>
+	</div>
+{% if filtr == 'filterWebContent' %}
+	<table class="table table-hover">
+		<tr>
+			<th class="table-dark" scope="col">Site</th>
+			<td class="table-dark">{{ post['thread']['site_full'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Url</th>
+			<td class="table-dark">{{ post['url'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Title</th>
+			<td class="table-dark">{{ post['thread']['title'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Text</th>
+			<td class="table-dark">{{ post['text'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Published Date</th>
+			<td class="table-dark">{{ post['published'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Site Type</th>
+			<td class="table-dark">{{ post['thread']['site_type'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Site Category</th>
+			<td class="table-dark">{{ '\n'.join(post['thread']['site_categories']) }}</td>
+		<tr>
+			<th class="table-dark" scope="col">Country</th>
+			<td class="table-dark">{{ post['thread']['country'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Author</th>
+			<td class="table-dark">{{ post['author'] }}</td>
+		</tr>
+		<tr>	
+			<th class="table-dark" scope="col">Language</th>
+			<td class="table-dark">{{ post['language'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Spam Score</th>
+			<td class="table-dark">{{ post['thread']['spam_score'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Domain Rank</th>
+			<td class="table-dark">{{ post['thread']['domain_rank'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">External Links</th>
+			<td class="table-dark">{{ '\n'.join(post['external_links']) }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Crawled</th>
+			<td class="table-dark">{{ post['crawled'] }}</td>
+		</tr>
+	</table>
+
+{% elif filtr == 'reviewFilter' %}
+	<table class="table table-hover">
+		<tr>
+			<th class="table-dark" scope="col">Site</th>
+			<td class="table-dark">{{ post['item']['site_full'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Url</th>
+			<td class="table-dark">{{ post['url'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Title</th>
+			<td class="table-dark">{{ post['item']['title'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Text</th>
+			<td class="table-dark">{{ post['text'] }}</td>
+		</tr>
+		<tr> 
+			<th class="table-dark" scope="col">Published Date</th>
+			<td class="table-dark">{{ post['published'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Site Type</th>
+			<td class="table-dark">{{ post['item']['site_type'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Site Category</th>
+			<td class="table-dark">{{ '\n'.join(post['item']['site_categories']) }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Country</th>
+			<td class="table-dark">{{ post['item']['country'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Author</th>
+			<td class="table-dark">{{ post['author'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Language</th>
+			<td class="table-dark">{{ post['language'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Spam Score</th>
+			<td class="table-dark">{{ post['item']['spam_score'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Domain Rank</th>
+			<td class="table-dark">{{ post['item']['domain_rank'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">External Links</th>
+			<td class="table-dark">{{ '\n'.join(post['external_links']) }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Rating</th>
+			<td class="table-dark">{{ post['rating'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Crawled</th>
+			<td class="table-dark">{{ post['crawled'] }}</td>
+		</tr>		
+	</table>
+
+{% elif filtr == 'productFilter' %}
+	<table class="table table-hover">
+		<tr>
+			<th class="table-dark" scope="col">Site</th>
+			<td class="table-dark">{{ post['source']['site_full'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Url</th>
+			<td class="table-dark">{{ post['url'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Title</th>
+			<td class="table-dark">{{ post['source']['section_title'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Name</th>
+			<td class="table-dark">{{ post['name'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Description</th>
+			<td class="table-dark">{{ post['description'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Brand</th>
+			<td class="table-dark">{{ post['brand'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Price</th>
+			<td class="table-dark">{{ post['price'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Currency</th>
+			<td class="table-dark">{{ post['currency'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Offer Price</th>
+			<td class="table-dark">{{ post['offer_price'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Model</th>
+			<td class="table-dark">{{ post['model'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">In Stock</th>
+			<td class="table-dark">{{ post['in_stock'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">post ID</th>
+			<td class="table-dark">{{ post['post_id'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Colors</th>
+			<td class="table-dark">{{ '\n'.join(post['colors']) }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Rating</th>
+			<td class="table-dark">{{ post['aggregated_rating'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Categories</th>
+			<td class="table-dark">{{ '\n'.join(post['categories']) }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Width</th>
+			<td class="table-dark">{{ post['width'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Height</th>
+			<td class="table-dark">{{ post['height'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Images</th>
+			<td class="table-dark">{{ '\n'.join(post['images']) }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Language</th>
+			<td class="table-dark">{{ post['language'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Crawled</th>
+			<td class="table-dark">{{ post['crawled'] }}</td>	
+		</tr>
+	</table>
+
+{% elif filtr == 'darkwebFilter' %}
+	<table class="table table-hover">
+		<tr>
+			<th class="table-dark" scope="col">Site</th>
+			<td class="table-dark">{{ post['source']['site'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Url</th>
+			<td class="table-dark">{{ post['url'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Is Live</th>
+			<td class="table-dark">{{ post['source']['is_live'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Title</th>
+			<td class="table-dark">{{ post['title'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Text</th>
+			<td class="table-dark">{{ post['text'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Published</th>
+			<td class="table-dark">{{ post['published'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Author</th>
+			<td class="table-dark">{{ post['author'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Language</th>
+			<td class="table-dark">{{ post['language'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Site Type</th>
+			<td class="table-dark">{{ post['thread']['site_type'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Spam Score</th>
+			<td class="table-dark">{{ post['thread']['spam_score'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">External Links</th>
+			<td class="table-dark">{{ '\n'.join(post['external_links']) }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">External Images</th>
+			<td class="table-dark">{{ '\n'.join(post['external_images']) }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Crawled</th>
+			<td class="table-dark">{{ post['crawled'] }}</td>	
+		</tr>
+	</table>
+
+{% elif filtr == 'broadcastFilter' %}
+	<table class="table table-hover">
+		<tr>
+			<th class="table-dark" scope="col">Type</th>
+			<td class="table-dark">{{ post['show']['type'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Name</th>
+			<td class="table-dark">{{ post['show']['name'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Text</th>
+			<td class="table-dark">{{ post['text'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Start At</th>
+			<td class="table-dark">{{ post['show']['start_at'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Duration</th>
+			<td class="table-dark">{{ post['show']['duration'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Market</th>
+			<td class="table-dark">{{ post['show']['market'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Station</th>
+			<td class="table-dark">{{ post['show']['station'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Network</th>
+			<td class="table-dark">{{ post['show']['network'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Timezone</th>
+			<td class="table-dark">{{ post['show']['timezone'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Language</th>
+			<td class="table-dark">{{ post['language'] }}</td>
+		</tr>
+		<tr>
+			<th class="table-dark" scope="col">Crawled</th>
+			<td class="table-dark">{{ post['saved'] }}</td>
+		</tr>
+		<tr>
+	</table>
+{% endif %}
+	<div style="float:right;">
+		<ul class="pagination">
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=pg-1) }}">&laquo;</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=1) }}">1</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=2) }}">2</a>
+			</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=mid_page-1) }}">{{ mid_page-1 }}</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=mid_page) }}">{{ mid_page }}</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=mid_page+1) }}">{{ mid_page+1 }}</a>
+			</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item bg-dark">.</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=total_page-1) }}">{{ total_page-1 }}</a>
+			</li>
+	        <li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=total_page) }}">{{ total_page }}</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('view_data',page=pg+1) }}">&raquo;</a>
+			</li>		
+		</ul>
+	</div>		
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block body %}
+	<h1>Search</h1>
+	<br>
+	<form action="" method="POST">
+
+	  <div class="form-group">
+      <label for="SelectFilter">Select Filter</label>
+      <select class="form-control" id="SelectFilter" name="filter" required="required">
+       	<option value="filterWebContent">NEWS, BLOGS & DISCUSSIONS</option>
+       	<option value="reviewFilter">REVIEWS</option>
+       	<option value="productFilter">E-COMMERCE</option>
+       	<option value="darkwebFilter">DARK WEB</option>
+       	<option value="broadcastFilter">BROADCAST</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="InputSearchQuery">Define the query</label>
+      <textarea class="form-control" id="InputSearchQuery" rows="3" placeholder="Enter your query..." name="search_query" type="text" required="required"></textarea>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="RUN">
+  </form>
+{% endblock %}
